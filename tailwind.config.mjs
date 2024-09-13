@@ -11,7 +11,14 @@ export default {
 	],
 	daisyui: {
 		themes: [
-			'light'
+			'light',
+			'dark',
+			'cupcake',
+			'bumblebee',
+			'emerald',
+			'corporate',
+			'lofi',
+			'synthwave',
 		],
 	},
 }

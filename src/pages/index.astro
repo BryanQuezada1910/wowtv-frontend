@@ -1,10 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from "../components/Hero.astro";
+import LiveCard from '../components/LiveCard.astro';
 import Card from '../components/Card.astro';
 ---
 
 <Layout title="WOW TV EL SALVADOR">
 	<main>
-		<a href="/hola" class="btn">Hello daisyUI</a> 
+		<Hero />
+		<LiveCard />
+		<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+			<Card title="Noticia 1" body="Descripción de la noticia 1" href="/news1" />
+			<Card title="Noticia 2" body="Descripción de la noticia 2" href="/news2" />
+			<Card title="Noticia 3" body="Descripción de la noticia 3" href="/news3" />
+		</section> 
 	</main>
 </Layout>
