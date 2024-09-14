@@ -1,52 +1,139 @@
-import {z} from "astro:content";
+import { z } from 'zod';
+
+import type { NewsItem, Category } from './types';
 
 const API_URL = import.meta.env.API_URL;
 
-console.log(API_URL);
-
-const newsSchema = z.object({
+// Esquema de las noticias
+const newsItemSchema = z.object({
     id: z.number(),
-    title: z.string(),
-    description: z.string(),
-    content: z.string(),
-    image: z.string(),
-    slug: z.string(),
-    category_id: z.number(),
+    attributes: z.object({
+        title: z.string(),
+        description: z.string(),
+        content: z.string(),
+        slug: z.string(),
+        createdAt: z.string(),
+        updatedAt: z.string(),
+        publishedAt: z.string(),
+        hero_image: z.object({
+            data: z.object({
+                attributes: z.object({
+                    formats: z.object({
+                        small: z.object({
+                            url: z.string(),
+                        }),
+                        medium: z.object({
+                            url: z.string(),
+                        }),
+                        large: z.object({
+                            url: z.string(),
+                        }),
+                        thumbnail: z.object({
+                            url: z.string(),
+                        }),
+                    }),
+                }),
+            }),
+        }),
+    }),
+});
+
+// Esquema para la respuesta de la lista de noticias
+const newsSchema = z.object({
+    data: z.array(newsItemSchema),
+    meta: z.object({
+        pagination: z.object({
+            page: z.number(),
+            pageSize: z.number(),
+            pageCount: z.number(),
+            total: z.number(),
+        }),
+    }),
+});
+
+// Esquema para las categorías
+const categoryItemSchema = z.object({
+    id: z.number(),
+    attributes: z.object({
+        name: z.string(),
+        createdAt: z.string(),
+        updatedAt: z.string(),
+        publishedAt: z.string(),
+    }),
 });
 
 const categorySchema = z.object({
-    id: z.number(),
-    name: z.string(),
+    data: z.array(categoryItemSchema),
+    meta: z.object({
+        pagination: z.object({
+            page: z.number(),
+            pageSize: z.number(),
+            pageCount: z.number(),
+            total: z.number(),
+        }),
+    }),
 });
 
-class Api {
-    async getNews() {
+const api = {
+    // Método para obtener las noticias
+    getNews: async (): Promise<NewsItem[]> => {
         try {
-            const response = await fetch(`${API_URL}/api/news`);
+            const response = await fetch(`${API_URL}/api/news?populate=hero_image`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch news: ${response.statusText}`);
             }
             const data = await response.json();
-            return newsSchema.parse(data);
-        } catch (error) {
-            console.error(error);
-            throw error;
-        }
-    }
+            const parsedData = newsSchema.parse(data);
 
-    async getCategories() {
+            return parsedData.data.map(item => ({
+                id: item.id,
+                attributes: {
+                    title: item.attributes.title,
+                    description: item.attributes.description,
+                    content: item.attributes.content,
+                    slug: item.attributes.slug,
+                    createdAt: item.attributes.createdAt,
+                    updatedAt: item.attributes.updatedAt,
+                    publishedAt: item.attributes.publishedAt,
+                    hero_image: {
+                        data: {
+                            attributes: {
+                                formats: {
+                                    small: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.small.url}` },
+                                    medium: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.medium.url}` },
+                                    large: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.large.url}` },
+                                    thumbnail: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.thumbnail.url}` },
+                                },
+                            },
+                        },
+                    },
+                },
+            }));
+        } catch (error) {
+            console.error('Error al obtener las noticias:', error);
+            throw new Error('Error al obtener las noticias');
+        }
+    },
+
+    // Método para obtener las categorías
+    getCategories: async (): Promise<Category[]> => {
         try {
             const response = await fetch(`${API_URL}/api/categories`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch categories: ${response.statusText}`);
             }
             const data = await response.json();
-            return categorySchema.parse(data);
+            const parsedData = categorySchema.parse(data);
+
+            return parsedData.data.map(item => ({
+                id: item.id,
+                attributes: item.attributes,
+            }));
         } catch (error) {
-            console.error(error);
-            throw error;
+            console.error('Error al obtener las categorías:', error);
+            throw new Error('Error al obtener las categorías');
         }
     }
-}
+};
 
-export default new Api();
+export default api;

@@ -5,9 +5,11 @@ import Hero from "../components/Hero.astro";
 import LiveCard from '../components/LiveCard.astro';
 import Card from '../components/Card.astro';
 
+import type { NewsItem } from '../types.ts';
+
 import api from '../api.ts';
 
-const news = await api.getNews();
+const news: NewsItem[] = await api.getNews();
 ---
 
 <Layout title="WOW TV EL SALVADOR">
@@ -15,12 +17,7 @@ const news = await api.getNews();
   <LiveCard />
   <NewsLayout>
     {news.map((item) => (
-      <Card
-        image={item.attributes.hero_image.data.attributes.formats.medium.url}
-        title={item.attributes.title}
-        description={item.attributes.description}
-        href={`/news/${item.attributes.slug}`}
-      />
+      <Card image={item.attributes.hero_image.data.attributes.formats.large.url} title={item.attributes.title} description={item.attributes.description} href="/" />
     ))}
   </NewsLayout>
 </Layout>
