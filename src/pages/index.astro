@@ -1,21 +1,21 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import NewsLayout from '../layouts/NewsLayout.astro';
-import Hero from "../components/Hero.astro";
-import LiveCard from '../components/LiveCard.astro';
-import Card from '../components/Card.astro';
+import MainLayout from "@/layouts/MainLayout.astro";
+import NewsLayout from "@/layouts/NewsLayout.astro";
+import Hero from "@/components/Hero.astro";
+import LiveCard from "@/components/LiveCard.astro";
+import NewsCard from "@/components/NewsCard.astro";
 
-import api from '../api.ts';
+import api from "@/api.ts";
 
 const news = await api.getNews();
 ---
 
-<Layout title="WOW TV EL SALVADOR">
+<MainLayout title="WOW TV EL SALVADOR">
   <Hero />
   <LiveCard />
   <NewsLayout>
     {news.map((item) => (
-      <Card
+      <NewsCard
         image={item.attributes.hero_image.data.attributes.formats.medium.url}
         title={item.attributes.title}
         description={item.attributes.description}
@@ -23,4 +23,4 @@ const news = await api.getNews();
       />
     ))}
   </NewsLayout>
-</Layout>
+</MainLayout>

@@ -19,6 +19,10 @@ export default {
 			'corporate',
 			'lofi',
 			'synthwave',
+			'night',
+			'stranger',
+			'black',
+			'dracula',
 		],
 	},
 }
