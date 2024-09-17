@@ -7,13 +7,13 @@ import NewsCard from "@/components/NewsCard.astro";
 
 import api from "@/api.ts";
 
-const news = await api.getNews();
+const news = await api.getRecentNews();
 ---
 
 <MainLayout title="WOW TV EL SALVADOR">
   <Hero />
   <LiveCard />
-  <NewsLayout>
+  <NewsLayout title="Las noticias mas recientes">
     {
       news.map((item) => (
         <NewsCard
@@ -25,4 +25,7 @@ const news = await api.getNews();
       ))
     }
   </NewsLayout>
+  <div class="flex w-full justify-center pb-6 pt-1">
+    <a class="btn btn-outline btn-primary" href="/news">Ver mas</a>
+  </div>
 </MainLayout>

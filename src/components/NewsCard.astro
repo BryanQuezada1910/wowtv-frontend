@@ -10,13 +10,15 @@ const { image, title, description, href } = Astro.props;
 ---
 
 <div class="card bg-base-200 shadow-xl">
-  <figure>
-    <img
-      class="w-full h-80 object-cover"
-      src={image}
-      alt={title}
-    />
-  </figure>
+  <a href={href}>
+    <figure>
+        <img
+          class="w-full h-80 object-cover"
+          src={image}
+          alt={title}
+        />
+    </figure>
+  </a>
   <div class="card-body w-full">
     <h3 class="card-title">{title}</h3>
     <p>{description}</p>

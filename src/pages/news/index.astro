@@ -1,10 +1,24 @@
 ---
 import Layout from "@/layouts/MainLayout.astro";
+import NewsLayout from "@/layouts/NewsLayout.astro";
+import NewsCard from "@/components/NewsCard.astro";
+
+import api from "@/api.ts";
+
+const news = await api.getNews();
 ---
 
 <Layout title="Noticias">
-  <div class="flex flex-col items-center w-full min-h-full p-24">
-    <h1>Noticias</h1>
-    <p>Coming soon...</p>
-  </div>
+  <NewsLayout title="Noticias">
+    {
+      news.map((item) => (
+        <NewsCard
+          image={item.attributes.hero_image.data.attributes.formats.medium.url}
+          title={item.attributes.title}
+          description={item.attributes.description}
+          href={`/news/${item.attributes.slug}`}
+        />
+      ))
+    }
+  </NewsLayout>
 </Layout>

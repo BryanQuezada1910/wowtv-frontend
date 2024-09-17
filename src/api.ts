@@ -114,6 +114,44 @@ const api = {
             throw new Error('Error al obtener las noticias');
         }
     },
+    getRecentNews: async (): Promise<NewsItem[]> => {
+        try {
+            const response = await fetch(`${API_URL}/api/news?sort=publishedAt:desc&pagination[pageSize]=12&pagination[page]=1&populate=hero_image`);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch news: ${response.statusText}`);
+            }
+            const data = await response.json();
+            const parsedData = newsSchema.parse(data);
+
+            return parsedData.data.map(item => ({
+                id: item.id,
+                attributes: {
+                    title: item.attributes.title,
+                    description: item.attributes.description,
+                    content: item.attributes.content,
+                    slug: item.attributes.slug,
+                    createdAt: item.attributes.createdAt,
+                    updatedAt: item.attributes.updatedAt,
+                    publishedAt: item.attributes.publishedAt,
+                    hero_image: {
+                        data: {
+                            attributes: {
+                                formats: {
+                                    small: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.small.url}` },
+                                    medium: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.medium.url}` },
+                                    large: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.large.url}` },
+                                    thumbnail: { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.thumbnail.url}` },
+                                },
+                            },
+                        },
+                    },
+                },
+            }));
+        } catch (error) {
+            console.error('Error al obtener las noticias:', error);
+            throw new Error('Error al obtener las noticias');
+        }
+    },
 
     getNewsBySlug: async (slug: string): Promise<NewsItem | null> => {
         try {
