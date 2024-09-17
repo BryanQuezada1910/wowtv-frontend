@@ -115,6 +115,21 @@ const api = {
         }
     },
 
+    getNewsBySlug: async (slug: string): Promise<NewsItem | null> => {
+        try {
+          const response = await fetch(`${API_URL}/api/news?filters[slug][$eq]=${slug}&populate=hero_image`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch news item with slug: ${slug}`);
+          }
+          const data = await response.json();
+          const parsedData = newsSchema.parse(data);
+          return parsedData.data.length ? parsedData.data[0] : null;
+        } catch (error) {
+          console.error('Error al obtener la noticia por slug:', error);
+          return null;
+        }
+      },
+
     // Método para obtener las categorías
     getCategories: async (): Promise<Category[]> => {
         try {
