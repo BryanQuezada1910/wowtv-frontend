@@ -30,8 +30,8 @@ const content = currentNewsItem?.attributes?.content ?? '';
 
 <MainLayout title={title}>
     <article class="flex flex-col items-center max-w-[1280px] mx-auto">
-        <h1 class="max-w-[900px] font-bold text-5xl text-center p-8">{title}</h1>
-        <img class="max-h-[500px] rounded-2xl p-8" src={heroImageUrl} alt={title} />
+        <h1 class="max-w-[900px] text-center text-pretty font-bold text-4xl p-5">{title}</h1>
+        <img class="max-h-[500px] rounded-2xl p-5" src={heroImageUrl} alt={title} />
         <!-- <p class="">{description}</p> -->
         <p class="max-w-[900px] p-8">{content}</p>
     </article>
