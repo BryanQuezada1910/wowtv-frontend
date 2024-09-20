@@ -17,5 +17,5 @@ body {
 }
 
 main {
-    flex: 1; /* Hace que el main ocupe todo el espacio disponible */
+    flex: 1;
 }

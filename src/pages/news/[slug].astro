@@ -21,14 +21,17 @@ const currentNewsItem = news.find((item) => item.attributes.slug === Astro.param
 
 const title = currentNewsItem?.attributes?.title ?? 'WOW TV EL SALVADOR';
 const description = currentNewsItem?.attributes?.description ?? 'Descripción por defecto';
-const heroImageUrl = currentNewsItem?.attributes?.hero_image?.data?.attributes?.formats?.medium?.url ?? '';
+const heroImageUrl = currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.large?.url 
+  ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.medium?.url
+  ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.small?.url
+  ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url;
 const content = currentNewsItem?.attributes?.content ?? '';
 ---
 
 <MainLayout title={title}>
-    <article class="flex flex-col items-center max-w-[1600px] mx-auto">
+    <article class="flex flex-col items-center max-w-[1280px] mx-auto">
         <h1 class="max-w-[900px] font-bold text-5xl text-center p-8">{title}</h1>
-        <img class="max-w-[900px] rounded-2xl p-8" src={heroImageUrl} alt={title} />
+        <img class="max-h-[500px] rounded-2xl p-8" src={heroImageUrl} alt={title} />
         <!-- <p class="">{description}</p> -->
         <p class="max-w-[900px] p-8">{content}</p>
     </article>

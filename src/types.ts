@@ -9,14 +9,14 @@ export type NewsItem = {
         createdAt: string;
         updatedAt: string;
         publishedAt: string;
-        hero_image: {
-            data: {
-                attributes: {
-                    formats: {
-                        large: { url: string };
-                        small: { url: string };
-                        medium: { url: string };
-                        thumbnail: { url: string };
+        hero_image?: {
+            data?: {
+                attributes?: {
+                    formats?: {
+                        large?: { url: string };
+                        small?: { url: string };
+                        medium?: { url: string };
+                        thumbnail?: { url: string };
                     };
                 };
             };

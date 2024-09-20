@@ -17,7 +17,10 @@ const news = await api.getRecentNews();
     {
       news.map((item) => (
         <NewsCard
-          image={item.attributes.hero_image.data.attributes.formats.medium.url}
+          image={item.attributes.hero_image?.data?.attributes?.formats?.large?.url ??
+            item.attributes.hero_image?.data?.attributes?.formats?.medium?.url ??
+            item.attributes.hero_image?.data?.attributes?.formats?.small?.url ??
+            item.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url ?? "/image-not-found.png"}
           title={item.attributes.title}
           description={item.attributes.description}
           href={`/news/${item.attributes.slug}`}
