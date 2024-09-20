@@ -94,21 +94,21 @@ const api = {
                     formats: {
                       small: item.attributes.hero_image.data.attributes?.formats?.small
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.small.url}` }
-                        : null,
+                        : undefined,
                       medium: item.attributes.hero_image.data.attributes?.formats?.medium
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.medium.url}` }
-                        : null,
+                        : undefined,
                       large: item.attributes.hero_image.data.attributes?.formats?.large
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.large.url}` }
-                        : null,
+                        : undefined,
                       thumbnail: item.attributes.hero_image.data.attributes?.formats?.thumbnail
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.thumbnail.url}` }
-                        : null,
+                        : undefined,
                     },
                   },
                 },
               }
-            : null,
+            : undefined,
         },
       }));
     } catch (error) {
@@ -144,21 +144,21 @@ const api = {
                     formats: {
                       small: item.attributes.hero_image.data.attributes?.formats?.small
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.small.url}` }
-                        : null,
+                        : undefined,
                       medium: item.attributes.hero_image.data.attributes?.formats?.medium
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.medium.url}` }
-                        : null,
+                        : undefined,
                       large: item.attributes.hero_image.data.attributes?.formats?.large
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.large.url}` }
-                        : null,
+                        : undefined,
                       thumbnail: item.attributes.hero_image.data.attributes?.formats?.thumbnail
                         ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.thumbnail.url}` }
-                        : null,
+                        : undefined,
                     },
                   },
                 },
               }
-            : null,
+            : undefined,
         },
       }));
     } catch (error) {
@@ -168,7 +168,7 @@ const api = {
   },
 
   // Mehotd to get news by slug
-  getNewsBySlug: async (slug: string): Promise<NewsItem | null> => {
+  getNewsBySlug: async (slug: string): Promise<NewsItem | undefined> => {
     try {
       const response = await fetch(`${API_URL}/api/news?filters[slug][$eq]=${slug}&populate=hero_image`);
       if (!response.ok) {
@@ -176,10 +176,10 @@ const api = {
       }
       const data = await response.json();
       const parsedData = newsSchema.parse(data);
-      return parsedData.data.length ? parsedData.data[0] : null;
+      return parsedData.data.length ? parsedData.data[0] : undefined;
     } catch (error) {
       console.error('Error fetching news by slug:', error);
-      return null;
+      return undefined;
     }
   },
 

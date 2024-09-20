@@ -1,7 +1,6 @@
 ---
 import api from "@/api";
 import MainLayout from "@/layouts/MainLayout.astro";
-import type { NewsItem } from "@/types";
 
 // Obtener las props (la noticia en sí)
 const { news } = Astro.props;
@@ -20,7 +19,6 @@ export const getStaticPaths = async () => {
 const currentNewsItem = news.find((item) => item.attributes.slug === Astro.params.slug);
 
 const title = currentNewsItem?.attributes?.title ?? 'WOW TV EL SALVADOR';
-const description = currentNewsItem?.attributes?.description ?? 'Descripción por defecto';
 const heroImageUrl = currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.large?.url 
   ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.medium?.url
   ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.small?.url

@@ -24,11 +24,11 @@ const Live = () => {
 
     // You can handle player events here, for example:
     player.on("waiting", () => {
-      videojs.log("player is waiting");
+      VideoJS.log("player is waiting");
     });
 
     player.on("dispose", () => {
-      videojs.log("player will dispose");
+      VideoJS.log("player will dispose");
     });
   };
 
