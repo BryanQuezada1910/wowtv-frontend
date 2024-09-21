@@ -120,7 +120,7 @@ const api = {
   // Method to get recent news
   getRecentNews: async (): Promise<NewsItem[]> => {
     try {
-      const response = await fetch(`${API_URL}/api/news?sort=publishedAt:desc&pagination[pageSize]=12&pagination[page]=1&populate=hero_image`);
+      const response = await fetch(`${API_URL}/api/news?sort=publishedAt:desc&pagination[pageSize]=3&pagination[page]=1&populate=hero_image`);
       if (!response.ok) {
         throw new Error(`Failed to fetch news: ${response.statusText}`);
       }
