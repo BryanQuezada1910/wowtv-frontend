@@ -1,0 +1,7 @@
+---
+import { marked } from 'marked'
+
+const content = marked.parse(Astro.props.content);
+---
+
+<article class="max-w-[900px] p-8 [&_p]:mb-5 [&_a]:text-primary [&_h3]:font-bold [&_h3]:text-3xl [&_h3]:mb-5" set:html={content}></article>

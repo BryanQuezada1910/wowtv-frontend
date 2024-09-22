@@ -93,16 +93,16 @@ const api = {
                   attributes: {
                     formats: {
                       small: item.attributes.hero_image.data.attributes?.formats?.small
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.small.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.small.url }
                         : undefined,
                       medium: item.attributes.hero_image.data.attributes?.formats?.medium
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.medium.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.medium.url }
                         : undefined,
                       large: item.attributes.hero_image.data.attributes?.formats?.large
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.large.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.large.url }
                         : undefined,
                       thumbnail: item.attributes.hero_image.data.attributes?.formats?.thumbnail
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.thumbnail.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.thumbnail.url }
                         : undefined,
                     },
                   },
@@ -143,16 +143,16 @@ const api = {
                   attributes: {
                     formats: {
                       small: item.attributes.hero_image.data.attributes?.formats?.small
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.small.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.small.url }
                         : undefined,
                       medium: item.attributes.hero_image.data.attributes?.formats?.medium
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.medium.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.medium.url }
                         : undefined,
                       large: item.attributes.hero_image.data.attributes?.formats?.large
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.large.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.large.url }
                         : undefined,
                       thumbnail: item.attributes.hero_image.data.attributes?.formats?.thumbnail
-                        ? { url: `${API_URL}${item.attributes.hero_image.data.attributes.formats.thumbnail.url}` }
+                        ? { url: item.attributes.hero_image.data.attributes.formats.thumbnail.url }
                         : undefined,
                     },
                   },
