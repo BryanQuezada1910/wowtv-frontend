@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { NewsItem, Category } from './types';
 
-const API_URL = import.meta.env.API_URL;
+const API_URL = import.meta.env.PUBLIC_API_URL;
 
 const newsItemSchema = z.object({
   id: z.number(),
