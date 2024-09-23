@@ -1,13 +1,15 @@
 ---
 import Layout from "@/layouts/MainLayout.astro";
 import NewsLayout from "@/layouts/NewsLayout.astro";
-import Categories from "@/components/Categories.astro";
+// import Categories from "@/components/Categories.astro";
 import NewsList from "@/components/AllNews";
+import Loader from "@/components/Loader.astro";
 ---
 
 <Layout title="Noticias">
-  <Categories />
+  <!-- <Categories /> -->
+  <Loader />
   <NewsLayout>
-    <NewsList client:load />
+    <NewsList client:only="react" />
   </NewsLayout>
 </Layout>

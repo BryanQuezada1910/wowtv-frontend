@@ -16,6 +16,13 @@ const NewsList = () => {
     };
 
     fetchNews();
+
+    const spinner = document.querySelector(".loading-container");
+
+    if (spinner) {
+      spinner.remove();
+    }
+
   }, []);
 
   if (!news.length) {
