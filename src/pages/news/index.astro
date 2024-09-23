@@ -1,29 +1,13 @@
 ---
 import Layout from "@/layouts/MainLayout.astro";
 import NewsLayout from "@/layouts/NewsLayout.astro";
-import NewsCard from "@/components/NewsCard.astro";
 import Categories from "@/components/Categories.astro";
-
-import api from "@/api.ts";
-
-const news = await api.getNews();
+import NewsList from "@/components/AllNews";
 ---
 
 <Layout title="Noticias">
   <Categories />
   <NewsLayout>
-    {
-      news.map((item) => (
-        <NewsCard
-          image={item.attributes.hero_image?.data?.attributes?.formats?.large?.url ??
-            item.attributes.hero_image?.data?.attributes?.formats?.medium?.url ??
-            item.attributes.hero_image?.data?.attributes?.formats?.small?.url ??
-            item.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url ?? "/image-not-found.png"}
-          title={item.attributes.title}
-          description={item.attributes.description}
-          href={`/news/${item.attributes.slug}`}
-        />
-      ))
-    }
+    <NewsList client:load />
   </NewsLayout>
 </Layout>

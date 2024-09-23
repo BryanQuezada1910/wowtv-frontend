@@ -2,26 +2,24 @@
 import api from "@/api";
 import Markdown from "@/components/Markdown.astro";
 import MainLayout from "@/layouts/MainLayout.astro";
+import type { NewsItem } from "@/types";
 
-const { news } = Astro.props;
+let article:NewsItem | undefined;
 
-export const getStaticPaths = async () => {
-  const news = await api.getNews();
+const {slug} = Astro.params;
+try {
+  article = await api.getNewsBySlug(slug as string);
+} catch (error) {
+  console.error(error);
+  return Astro.redirect('/404');
+}
 
-  return news.map((item) => ({
-    params: { slug: item.attributes.slug },
-    props: { news },
-  }));
-};
-
-const currentNewsItem = news.find((item) => item.attributes.slug === Astro.params.slug);
-
-const title = currentNewsItem?.attributes?.title ?? 'WOW TV EL SALVADOR';
-const heroImageUrl = currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.large?.url 
-  ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.medium?.url
-  ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.small?.url
-  ?? currentNewsItem?.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url;
-const content = (currentNewsItem?.attributes?.content ?? '');
+const title = article?.attributes?.title ?? 'WOW TV EL SALVADOR';
+const heroImageUrl = article?.attributes.hero_image?.data?.attributes?.formats?.large?.url 
+  ?? article?.attributes.hero_image?.data?.attributes?.formats?.medium?.url
+  ?? article?.attributes.hero_image?.data?.attributes?.formats?.small?.url
+  ?? article?.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url;
+const content = (article?.attributes?.content ?? '');
 ---
 
 <MainLayout title={title}>

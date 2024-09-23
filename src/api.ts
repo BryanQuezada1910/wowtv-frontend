@@ -70,7 +70,7 @@ const api = {
   // Method to get news
   getNews: async (): Promise<NewsItem[]> => {
     try {
-      const response = await fetch(`${API_URL}/api/news?populate=hero_image`);
+      const response = await fetch(`${API_URL}/api/news?populate=hero_image&sort=publishedAt:desc`);
       if (!response.ok) {
         throw new Error(`Failed to fetch news: ${response.statusText}`);
       }
