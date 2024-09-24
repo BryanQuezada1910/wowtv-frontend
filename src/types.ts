@@ -24,6 +24,43 @@ export type NewsItem = {
     };
 };
 
+export type NewsItemAndCategory = {
+    id: number;
+    attributes: {
+        title: string;
+        description: string;
+        content: string;
+        slug: string;
+        createdAt: string;
+        updatedAt: string;
+        publishedAt: string;
+        hero_image?: {
+            data?: {
+                attributes?: {
+                    formats?: {
+                        large?: { url: string };
+                        small?: { url: string };
+                        medium?: { url: string };
+                        thumbnail?: { url: string };
+                    };
+                };
+            };
+        };
+        category: {
+            data: {
+                id: number;
+                attributes: {
+                    name: string;
+                    createdAt: string;
+                    updatedAt: string;
+                    publishedAt: string;
+                    slug: string;
+                };
+            };
+        };
+    };
+};
+
 export type Category = {
     id: number;
     attributes: {
@@ -31,6 +68,7 @@ export type Category = {
         createdAt: string;
         updatedAt: string;
         publishedAt: string;
+        slug: string;
     };
 };
 

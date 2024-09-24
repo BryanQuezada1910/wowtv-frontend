@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NewsCard from "@/components/NewsCard";
-import api from "@/api";
+import fetchApi from "@/lib/strapi.ts";
 
 const NewsList = () => {
   const [news, setNews] = useState([]);
@@ -8,7 +8,11 @@ const NewsList = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const news = await api.getNews();
+        const news = await fetchApi({
+          endpoint: "/news?populate=hero_image&sort=publishedAt:desc&populate=category",
+          wrappedByKey: "data"
+        });
+        console.log("news", news);
         setNews(news);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -44,6 +48,7 @@ const NewsList = () => {
           title={item.attributes.title}
           description={item.attributes.description}
           href={`/news/${item.attributes.slug}`}
+          category={item.attributes.category.data.attributes.name}
         />
       ))}
     </>
