@@ -26,7 +26,8 @@ const title = article?.attributes?.title ?? 'WOW TV EL SALVADOR';
 const heroImageUrl = article?.attributes.hero_image?.data?.attributes?.formats?.large?.url 
   ?? article?.attributes.hero_image?.data?.attributes?.formats?.medium?.url
   ?? article?.attributes.hero_image?.data?.attributes?.formats?.small?.url
-  ?? article?.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url;
+  ?? article?.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url
+  ?? '/hero-image.jpg';
 const content = (article?.attributes?.content ?? 'No hay contenido');
 const category = article?.attributes.category?.data?.attributes?.name ?? 'Noticias';
 ---
