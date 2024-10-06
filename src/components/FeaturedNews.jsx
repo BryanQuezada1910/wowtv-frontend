@@ -9,7 +9,8 @@ const NewsList = () => {
     const fetchNews = async () => {
       try {
         const recentNews = await fetchApi({
-          endpoint: "/news?sort=publishedAt:desc&pagination[pageSize]=3&pagination[page]=1&populate=hero_image&populate=category",
+          endpoint:
+            "/news?sort=publishedAt:desc&pagination[pageSize]=3&pagination[page]=1&populate=hero_image&populate=category",
           wrappedByKey: "data",
         });
         setNews(recentNews);
@@ -22,7 +23,11 @@ const NewsList = () => {
   }, []);
 
   if (!news.length) {
-    return null;
+    return (
+      <div>
+        <p>No hay noticias para mostrar...</p>
+      </div>
+    );
   }
 
   return (
@@ -32,9 +37,11 @@ const NewsList = () => {
           key={item.id}
           image={
             item.attributes.hero_image?.data?.attributes?.formats?.large?.url ??
-            item.attributes.hero_image?.data?.attributes?.formats?.medium?.url ??
+            item.attributes.hero_image?.data?.attributes?.formats?.medium
+              ?.url ??
             item.attributes.hero_image?.data?.attributes?.formats?.small?.url ??
-            item.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url ??
+            item.attributes.hero_image?.data?.attributes?.formats?.thumbnail
+              ?.url ??
             "/image-not-found.png"
           }
           title={item.attributes.title}

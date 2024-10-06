@@ -24,7 +24,6 @@ export default async function fetchApi<T>({
   }
 
   const url = new URL(`${import.meta.env.PUBLIC_API_URL}/api/${endpoint}`);
-  console.log(url);
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {

@@ -1,4 +1,7 @@
 {
     "editor.defaultFormatter": "astro-build.astro-vscode",
     "editor.formatOnSave": true,
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }

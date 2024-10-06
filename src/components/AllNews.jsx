@@ -9,10 +9,10 @@ const NewsList = () => {
     const fetchNews = async () => {
       try {
         const news = await fetchApi({
-          endpoint: "/news?populate=hero_image&sort=publishedAt:desc&populate=category",
-          wrappedByKey: "data"
+          endpoint:
+            "/news?populate=hero_image&sort=publishedAt:desc&populate=category",
+          wrappedByKey: "data",
         });
-        console.log("news", news);
         setNews(news);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -26,11 +26,14 @@ const NewsList = () => {
     if (spinner) {
       spinner.remove();
     }
-
   }, []);
 
   if (!news.length) {
-    return null;
+    return (
+      <div>
+        <p>No hay noticias para mostrar...</p>
+      </div>
+    );
   }
 
   return (
@@ -40,9 +43,11 @@ const NewsList = () => {
           key={item.id}
           image={
             item.attributes.hero_image?.data?.attributes?.formats?.large?.url ??
-            item.attributes.hero_image?.data?.attributes?.formats?.medium?.url ??
+            item.attributes.hero_image?.data?.attributes?.formats?.medium
+              ?.url ??
             item.attributes.hero_image?.data?.attributes?.formats?.small?.url ??
-            item.attributes.hero_image?.data?.attributes?.formats?.thumbnail?.url ??
+            item.attributes.hero_image?.data?.attributes?.formats?.thumbnail
+              ?.url ??
             "/image-not-found.png"
           }
           title={item.attributes.title}
