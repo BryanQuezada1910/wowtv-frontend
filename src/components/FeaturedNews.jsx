@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import NewsCard from "@/components/NewsCard";
 import fetchApi from "@/lib/strapi.ts";
+import ReactLoader from "@/components/ReactLoader";
 
 const NewsList = () => {
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
+        setLoading(true);
         const recentNews = await fetchApi({
           endpoint:
             "/news?sort=publishedAt:desc&pagination[pageSize]=3&pagination[page]=1&populate=hero_image&populate=category",
@@ -16,13 +19,19 @@ const NewsList = () => {
         setNews(recentNews);
       } catch (error) {
         console.error("Error fetching news:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchNews();
   }, []);
 
-  if (!news.length) {
+  if (loading) {
+    return <ReactLoader />;
+  }
+
+  if (!loading && !news.length) {
     return (
       <div>
         <p>No hay noticias para mostrar...</p>

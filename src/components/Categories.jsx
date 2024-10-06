@@ -1,15 +1,18 @@
 import { useEffect, useState, useRef } from "react";
 import fetchApi from "@/lib/strapi.ts";
+import CategoriesLoader from "@/components/CategoriesLoader";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const [atEnd, setAtEnd] = useState(false); // Estado para detectar si está en el final del scroll
+  const [atEnd, setAtEnd] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navRef = useRef(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
+        setLoading(true);
         const categories = await fetchApi({
           endpoint: "/categories",
           wrappedByKey: "data",
@@ -17,6 +20,8 @@ const Categories = () => {
         setCategories(categories);
       } catch (error) {
         console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -42,6 +47,10 @@ const Categories = () => {
     };
   }, [categories]);
 
+  if (loading) {
+    return <CategoriesLoader />;
+  }
+
   if (!categories.length) {
     return null;
   }
@@ -49,7 +58,7 @@ const Categories = () => {
   return (
     <div className="relative bg-base-300 mb-2">
       <nav ref={navRef} className="flex max-w-[1280px] mx-auto overflow-x-auto">
-        <ul className="flex space-x-4">
+        <ul className="flex space-x-2">
           {categories.map((category) => (
             <li
               key={category.id}

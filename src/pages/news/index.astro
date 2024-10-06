@@ -3,12 +3,9 @@ import Layout from "@/layouts/MainLayout.astro";
 import NewsLayout from "@/layouts/NewsLayout.astro";
 import Categories from "@/components/Categories";
 import NewsList from "@/components/AllNews";
-import Loader from "@/components/Loader.astro";
 ---
 
 <Layout title="Noticias">
-  <!-- <Categories /> -->
-  <Loader />
   <Categories client:only="react"/>
   <NewsLayout>
     <NewsList client:only="react" />
