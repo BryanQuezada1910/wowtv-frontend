@@ -5,10 +5,12 @@ import NewsLayout from "@/layouts/NewsLayout.astro";
 import Hero from "@/components/Hero.astro";
 import LiveCard from "@/components/LiveCard.astro";
 import FeaturedNews from "@/components/FeaturedNews";
+import Galery from "@/components/Galery.astro";
 ---
 
 <MainLayout title="WOW TV EL SALVADOR">
   <Hero />
+  <Galery />
   <LiveCard />
   <NewsLayout title="Las noticias mas recientes">
     <FeaturedNews client:load />
